@@ -1,0 +1,407 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "L5 OpenApi",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "darius@matulionis.lt"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0",
+        "x-logo": {
+            "url": "https://via.placeholder.com/190x90.png?text=L5-Swagger"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://test-task/api/v1",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/api/v1": {},
+        "/calculate/{id}": {
+            "get": {
+                "tags": [
+                    "Blocks"
+                ],
+                "operationId": "aa7b8bc1686f1d521e3c62fa721cfef9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    },
+                    {
+                        "name": "temperature",
+                        "in": "query",
+                        "description": "Temperature",
+                        "example": "2"
+                    },
+                    {
+                        "name": "product_volume",
+                        "in": "query",
+                        "description": "Product volume",
+                        "example": "10"
+                    },
+                    {
+                        "name": "time",
+                        "in": "query",
+                        "description": "Days to store product",
+                        "example": "15"
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CalculatedFreeBlocksVolume"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": ""
+                    }
+                ]
+            }
+        },
+        "/book/{id}": {
+            "post": {
+                "tags": [
+                    "Blocks"
+                ],
+                "operationId": "90744b4f7f6aaadb595a1425b7034b3e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    },
+                    {
+                        "name": "temperature",
+                        "in": "query",
+                        "description": "Temperature",
+                        "example": "2"
+                    },
+                    {
+                        "name": "product_volume",
+                        "in": "query",
+                        "description": "Product volume",
+                        "example": "10"
+                    },
+                    {
+                        "name": "time",
+                        "in": "query",
+                        "description": "Days to store product",
+                        "example": "15"
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BookedBlocksResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": ""
+                    }
+                ]
+            }
+        },
+        "/locations": {
+            "get": {
+                "tags": [
+                    "Locations"
+                ],
+                "operationId": "f251a26a184f9e671bf715f37431fc63",
+                "responses": {
+                    "200": {
+                        "description": "Location response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LocationResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BookedBlocks": {
+                "title": "BookedBlocks",
+                "description": "Booked Blocks",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "room_id": {
+                        "title": "Room_id",
+                        "description": "Room ID",
+                        "format": "int64",
+                        "example": "154"
+                    },
+                    "booked": {
+                        "title": "booked",
+                        "description": "Is booked",
+                        "type": "boolean",
+                        "format": "boolean",
+                        "example": "1"
+                    },
+                    "room": {
+                        "$ref": "#/components/schemas/Room"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BookedBlocks"
+                }
+            },
+            "BookedBlocksResource": {
+                "title": "BookedBlocksResource",
+                "description": "Booked Blocks Resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BookedBlocks"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BookedBlocksResource"
+                }
+            },
+            "BookedLocation": {
+                "title": "BookedLocation",
+                "description": "BookedLocation",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "format": "int64",
+                        "example": "154"
+                    },
+                    "title": {
+                        "title": "title",
+                        "description": "title",
+                        "type": "string",
+                        "format": "string",
+                        "example": "Toronto"
+                    },
+                    "timezone": {
+                        "title": "timezone",
+                        "description": "timezone",
+                        "type": "string",
+                        "format": "string",
+                        "example": "America/New_York"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BookedLocation"
+                }
+            },
+            "CalculatedFreeBlocksVolume": {
+                "title": "CalculatedFreeBlocksVolumeResource",
+                "description": "Calculated free blocks volume resource",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/FreeBlocks"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CalculatedFreeBlocksVolumeResource"
+                }
+            },
+            "FreeBlocks": {
+                "title": "FreeBlocks",
+                "description": "Calculated free blocks resource",
+                "properties": {
+                    "free_volume": {
+                        "title": "Free volume",
+                        "description": "Free volume",
+                        "format": "int64",
+                        "example": 100
+                    },
+                    "required_number_of_blocks": {
+                        "title": "Required number of blocks",
+                        "description": "Required number of blocks",
+                        "format": "int64",
+                        "example": 10
+                    },
+                    "unused_product_volume": {
+                        "title": "Unused product volume",
+                        "description": "Unused product volume",
+                        "format": "int64",
+                        "example": 0
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "FreeBlocks"
+                }
+            },
+            "Location": {
+                "title": "Location",
+                "description": "Location model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "title": {
+                        "title": "Title",
+                        "description": "Title",
+                        "format": "varchar",
+                        "example": "California"
+                    },
+                    "free_blocks_count": {
+                        "title": "Free blocks count",
+                        "description": "Free blocks count",
+                        "format": "int64",
+                        "example": "45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Location"
+                }
+            },
+            "LocationResource": {
+                "title": "LocationResource",
+                "description": "Location resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Location"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "LocationResource"
+                }
+            },
+            "Room": {
+                "title": "Room",
+                "description": "Room",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "format": "int64",
+                        "example": "154"
+                    },
+                    "temperature": {
+                        "title": "temperature",
+                        "description": "temperature",
+                        "format": "int64",
+                        "example": "-2"
+                    },
+                    "location_id": {
+                        "title": "location_id",
+                        "description": "location_id",
+                        "format": "int64",
+                        "example": "147"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/BookedLocation"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Room"
+                }
+            },
+            "CalculationRequest": {
+                "title": "Calculation Request",
+                "description": "Calculation Request",
+                "required": [
+                    "temperature",
+                    "product_volume",
+                    "time"
+                ],
+                "properties": {
+                    "product_volume": {
+                        "title": "Product volume",
+                        "description": "Product volume",
+                        "type": "string",
+                        "example": "10"
+                    },
+                    "time": {
+                        "title": "Time",
+                        "description": "Days to store product",
+                        "type": "string",
+                        "example": "15"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "parameters": {
+            "temperature": {
+                "name": "temperature",
+                "in": "query",
+                "description": "Temperature",
+                "example": "2"
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Bearer 1|4vPptN0c2PkmliOdTbqSd0P3aRtj5AV0P9PbIA6i",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}
